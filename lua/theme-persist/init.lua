@@ -9,7 +9,9 @@ M.load = function()
 	vim.notify("Loading colorscheme")
 	local file = io.open(get_colorscheme_file(), "r")
 	if file then
-		local colorscheme = io.read("*a")
+		local colorscheme = file:read("*a")
+		file:close()
+
 		vim.cmd.colorscheme(colorscheme)
 	else
 		vim.notify("Failed to load file")
@@ -20,7 +22,8 @@ M.save = function(colorscheme)
 	vim.notify("Saving colorscheme")
 	local file = io.open(get_colorscheme_file(), "w")
 	if file then
-		io.write(colorscheme)
+		file:write(colorscheme)
+		file:close()
 	else
 		vim.notify("Failed to write file")
 	end
